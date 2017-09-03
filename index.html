@@ -2,12 +2,12 @@
 <html>
     <head>
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="b5nqlrfky8za0m9"></script>
+    <!--<script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>  -->
         <title>DBExplorer</title>
         <style>
             #topdiv
             {
-                top-padding:0;
-                margin-top=0;
+                margin-top:0;
                 position:fixed;
                 top:0;
             }
@@ -19,15 +19,31 @@
             #mainDiv
             {
                 background:#3090C7;
+                height:80vh;
                 border-radius:10px;   
             }
-            img.mod
+            .mod
             {
                 
                 width:50%;
             }
             
             .buttonStyle {
+            	border-radius:3px;
+                background-color: #555555; /* Blue */
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                
+            }
+            .TextStyle {
+            	border-radius:3px;
                 background-color: #555555; /* Blue */
                 border: none;
                 color: white;
@@ -56,17 +72,36 @@
         </div>
         <div id='mainDiv'>
             <center>
-                <h1 style="color:white;">Please Choose among the options</h1>
+                <h1 style="color:white;" id='sample'>Please Choose among the options</h1>
             </center>
             <center>
-                <button onclick='chooser()' class='buttonStyle' style='margin-right:100px;'>Choose Files</button>
-                <button class='buttonStyle'>Upload Files</button>
+                <button onclick='chooser()' class='buttonStyle' style='margin-right:100px;'>Download Files</button>
+                <font >Enter file path:</font>
+                <input type='text' class='TextStyle' value='' id='filePath'/>
+                <button class='buttonStyle'  onclick='uploadFile()'>Upload</button>
                 <br>
                 <button class='buttonStyle' id='fileDownload' onclick='download()'></button>
+                <h2 id='progressUpload'></h2>
             </center>
         </div>
 
         <script type="text/javascript">
+            
+            
+            function uploadFile()
+            {
+                var path = document.getElementById('filePath').value;
+                if(path.length==0)
+                {
+                    alert('INVALID PATH');
+                }
+                else{
+                    //alert(path);
+                    Dropbox.save(document.getElementById('filePath').value,optionsUpload);
+                    return false;   
+                }
+                
+            }
             
             function download(){
                 
@@ -76,7 +111,7 @@
             
             document.getElementById('fileDownload').style.visibility='hidden';
             
-             var link = (function()   
+            var link = (function()   
             {
                 var linkVal; // PRIVATE OBJECT
                 var public={}; // PUBLIC OBJECT
@@ -93,9 +128,44 @@
                 return public;  //NEEDED IN ORDER FOR OTHER FUNCTION TO ACCESS PRIVATE OBJECT
             }());
             
+            var optionsUpload = {
+                // Success is called once all files have been successfully added to the user's
+                // Dropbox, although they may not have synced to the user's devices yet.
+                success: function () {
+                    // Indicate to the user that the files have been saved.
+                    alert("Success! Files saved to your Dropbox.");
+                    document.getElementById('progressUpload').style.visibility='hidden';
+                },
+            
+                // Progress is called periodically to update the application on the progress
+                // of the user's downloads. The value passed to this callback is a float
+                // between 0 and 1. The progress callback is guaranteed to be called at least
+                // once with the value 1.
+                progress: function (progress){
+                    document.getElementById('progressUpload').innerHTML='Upload in progress';
+                },
+            
+                // Cancel is called if the user presses the Cancel button or closes the Saver.
+                cancel: function () {
+                    document.getElementById('progressUpload').style.visibility='hidden';
+                },
+            
+                // Error is called in the event of an unexpected response from the server
+                // hosting the files, such as not being able to find a file. This callback is
+                // also called if there is an error on Dropbox or if the user is over quota.
+                error: function (errorMessage) {
+                    
+                    alert('Local file uploads are not supported for now [ONLY HTTP and HTTPS are supported]');
+                    document.getElementById('progressUpload').style.visibility='hidden';
+                    //alert('ERROR AYITHI DOSTA.. TRY AGAIN LATER /\\');
+                }
+            };
+            
             options = {
-
+            
+                error: function (errorMessage) {},
                 // Required. Called when a user selects an item in the Chooser.
+               
                 success:function(files) {
                     document.getElementById('fileDownload').style.visibility='visible';
                     document.getElementById('fileDownload').innerHTML='Click Here';
@@ -115,7 +185,7 @@
 
                 // Optional. A value of false (default) limits selection to a single file, while
                 // true enables multiple file selection.
-                multiselect: true, // or true
+                multiselect: false, // or true
 
                 // Optional. This is a list of file extensions. If specified, the user will
                 // only be able to select files with these extensions. You may also specify
