@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="b5nqlrfky8za0m9"></script>
+        <title>DBExplorer</title>
+        <style>
+            #topdiv
+            {
+                top-padding:0;
+                margin-top=0;
+                position:fixed;
+                top:0;
+            }
+            
+            #btn1
+            {
+               width:20;
+            }
+            #mainDiv
+            {
+                background:#3090C7;
+                border-radius:10px;   
+            }
+            img.mod
+            {
+                
+                width:50%;
+            }
+            
+            .buttonStyle {
+                background-color: #555555; /* Blue */
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                
+            }
+            .buttonStyle:hover
+            {
+                background-color: #e7e7e7;
+                
+            }
+        </style>
+    </head> 
+
+    <body>
+        <div>
+            <center>
+                <img class='mod' src='https://i.imgur.com/CHavGO3.jpg' />
+            </center>
+        </div>
+        <div id='mainDiv'>
+            <center>
+                <h1 style="color:white;">Please Choose among the options</h1>
+            </center>
+            <center>
+                <button onclick='chooser()' class='buttonStyle' style='margin-right:100px;'>Choose Files</button>
+                <button class='buttonStyle'>Upload Files</button>
+                <br>
+                <button class='buttonStyle' id='fileDownload' onclick='download()'></button>
+            </center>
+        </div>
+
+        <script type="text/javascript">
+            
+            function download(){
+                
+                //window.location.href = 'http://www.google.com';
+                window.location.href = link.getLink();
+            }
+            
+            document.getElementById('fileDownload').style.visibility='hidden';
+            
+             var link = (function()   
+            {
+                var linkVal; // PRIVATE OBJECT
+                var public={}; // PUBLIC OBJECT
+                
+                public.setLink=function(l)
+                {
+                    linkVal = l;
+                };
+                
+                public.getLink = function()
+                {
+                    return linkVal;
+                };
+                return public;  //NEEDED IN ORDER FOR OTHER FUNCTION TO ACCESS PRIVATE OBJECT
+            }());
+            
+            options = {
+
+                // Required. Called when a user selects an item in the Chooser.
+                success:function(files) {
+                    document.getElementById('fileDownload').style.visibility='visible';
+                    document.getElementById('fileDownload').innerHTML='Click Here';
+                    link.setLink(files[0].link.substr(0,files[0].link.length-1)+'1');
+                },
+
+                // Optional. Called when the user closes the dialog without selecting a file
+                // and does not include any parameters.
+                cancel: function() {
+
+                },
+
+                // Optional. "preview" (default) is a preview link to the document for sharing,
+                // "direct" is an expiring link to download the contents of the file. For more
+                // information about link types, see Link types below.
+                linkType: "preview", // or "direct"
+
+                // Optional. A value of false (default) limits selection to a single file, while
+                // true enables multiple file selection.
+                multiselect: true, // or true
+
+                // Optional. This is a list of file extensions. If specified, the user will
+                // only be able to select files with these extensions. You may also specify
+                // file types, such as "video" or "images" in the list. For more information,
+                // see File types below. By default, all extensions are allowed.
+                //extensions: ['.pdf', '.doc', '.docx', '.png', '.jpeg', '.jpg'],
+            };
+            
+            function chooser(){
+                Dropbox.choose(options);
+            }
+        </script>
+    </body>
+</html>
