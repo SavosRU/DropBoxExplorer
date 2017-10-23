@@ -1,0 +1,139 @@
+    #topdiv
+    {
+        margin-top:0;
+        position:fixed;
+        top:0;
+    }
+    
+    #mainBody
+    {
+        margin-top: 0;
+        margin-right:0;
+        margin-left: 0;
+        background:#3090C7;
+    
+        
+        /*height:80vh;
+        border-radius:10px;*/   
+    }
+    
+    .MainHeader{
+    
+        background-repeat:no-repeat;
+        background: #ffffff; /*WHITE*/
+        margin-top: 0;
+        margin-right:0;
+        margin-left: 0;
+        height:10vh;
+        width:100%;
+        border-radius: 0px 0px 10px 10px;
+        border-bottom:1px solid;
+        float:left;
+        z-index: 1;
+        overflow:hidden;
+    }
+    
+    .MainHeader a{
+        width:10%;
+        height:10%;
+        margin-left:1%;
+        margin-top:1%;
+        display:inline-block;
+        position:absolute;
+        
+    }
+    .mainContent{
+        
+        padding-top:100px;
+    }
+    .mod
+    {
+         padding-left:28%;
+         width:35%;
+    }
+    
+    .menuImg{
+        width:30%;
+        height:50%;
+        padding:5px;
+        position:absolute;
+    }
+    
+    .slidingWindow {
+        height: 100%; /* 100% Full-height */
+        width: 0; /* 0 width - change this with JavaScript */
+        visibility: hidden;
+        position: absolute; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 0;
+        left: 0;
+        background-color: #111; /* Black*/
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 60px; /* Place content 60px from the top */
+        transition: 0.2s; /* 0.5 second transition effect to slide in the sidenav */
+    }
+    
+    .slidingWindow a {
+        padding: 8px 8px 8px 0px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.1s
+    }
+    
+    .buttonStyle {
+    	border-radius:3px;
+        background-color: #555555; /* Blue */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        
+    }
+    
+    .buttonStyle:hover
+    {
+        background-color: #e7e7e7;
+        transition:0.5s;
+        
+    }
+    
+    .TextStyle {
+    	border-radius:3px;
+        background-color: #555555; /* Blue */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        
+    }
+    
+    #btn1
+    {
+       width:20;
+    }
+    
+    .downloadStyle{
+        position:absolute;
+         background-color: #ffffff;
+         border-radius: 8px;
+         width:100%;
+    
+         
+    }
+    
+    .uploadStyle{
+        position:absolute;
+        width:100%;
+         background-color: #ffffff;
+         border-radius: 3px;
+    }
