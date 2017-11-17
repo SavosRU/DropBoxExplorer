@@ -8,7 +8,7 @@ function uploadFile()
                 
                 //document.getElementById('progressUpload').innerHTML = "The upload process is going on...";
                 
-                var dropboxToken = '9EmU8QsmRUAAAAAAAAAA0OIkSZZox_NncCS187qBzY0lXZHJXXnqn4EOtUwt3fai';
+                
                 var file = document.getElementById('upload');
                 var xhr = new XMLHttpRequest();
                 
